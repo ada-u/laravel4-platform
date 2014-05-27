@@ -1,0 +1,54 @@
+server {
+  listen 80;
+  server_name server.local;
+  access_log  /var/log/nginx/access.log;
+  error_log   /var/log/nginx/error.log;
+  root        /vagrant/app/public;
+  index       index.php index.html;
+  charset     utf-8;
+
+
+  location / {
+    try_files $uri $uri/ /index.php?q=$uri&$args;
+  }
+
+  location ~ \.php$ {
+    try_files $uri =404; # if we cant find .php file, show 404
+    include /etc/nginx/fastcgi_params;
+    # fastcgi_pass    127.0.0.1:9000;
+
+    # using unix socket
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+
+    fastcgi_index   index.php;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+    # fastcgi_params
+    fastcgi_param SCRIPT_FILENAME   $document_root$fastcgi_script_name; 
+    fastcgi_param PATH_INFO         $fastcgi_path_info;
+    fastcgi_param PATH_TRANSLATED   $document_root$fastcgi_path_info; 
+  }
+
+#
+# static
+#
+  location ~ \.(html|css|js|jpe?g|png|gif|svg|mpg|flv|swf)$ {
+    expires 7d;
+    break;
+  }
+
+  location ~ /\.(ht|git|svn) {
+    deny all;
+  }
+
+  location = /favicon.ico {
+    access_log off;
+    log_not_found off;
+  }
+
+  location = /robots.txt {
+    access_log off;
+    log_not_found off;
+  }
+}
+

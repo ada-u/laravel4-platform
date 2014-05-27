@@ -1,0 +1,9 @@
+---
+box: yutaadachi/ubuntu14.04-ansible1.6@1.0.3
+build :
+  steps :
+    - script:
+        name : run playbook
+        code : |
+          cd $WERCKER_ROOT
+          ansible-playbook provisioning/site.yml --connection=local

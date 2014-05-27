@@ -1,0 +1,10 @@
+- hosts: server.local
+
+  user: vagrant
+  sudo: yes
+
+  roles:
+    - { role: apt }
+    - { role: common }
+    - { role: nginx }
+    - { role: php }

@@ -1,0 +1,15 @@
+---
+# Part: PHP
+# File: pear.yml
+
+# Description: Install and configure PEAR libs
+
+- name: Install PEAR 
+  apt: pkg=php-pear state=installed
+
+- name: Upgrade PEAR packages
+  command: pear upgrade
+
+- name: Set PEAR auto-discover
+  command: pear config-set auto_discover 1
+

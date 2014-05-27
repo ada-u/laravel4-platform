@@ -1,0 +1,25 @@
+---
+- name: Update apt-get cache
+  apt: update_cache=yes
+  tags: common
+
+- include: locale.yml
+  tags: 
+    - common
+    - locale
+# Part: Common
+# File: main.yml
+
+# Description: Install basic utilities (tree, git, curl, and so on)
+
+#- name: Install tree
+#  apt: pkg=tree 
+#
+#- name: Install Git
+#  apt: pkg=git
+#
+#- name: Install curl command
+#  apt: pkg=curl
+#
+#- name: Copy .bashrc
+#  copy: src=.bashrc dest=/home/{{ user }}/.bashrc

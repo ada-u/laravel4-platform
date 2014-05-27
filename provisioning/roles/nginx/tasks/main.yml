@@ -1,0 +1,24 @@
+---
+- name: Install nginx
+  apt: pkg=nginx
+  tags: nginx
+
+- name: Remove default configuration
+  file: path=/etc/nginx/sites-available/default state=absent
+  tags: nginx
+
+- name: Create the site configuration
+  template: src=app.j2 dest=/etc/nginx/sites-available/app owner=www-data group=www-data mode=0644
+  notify:
+    - restart nginx
+  tags: nginx
+
+- name: Make the configuration link
+  file: src=/etc/nginx/sites-available/app dest=/etc/nginx/sites-enabled/app state=link
+  notify:
+   - restart nginx
+  tags: nginx
+
+- name: Start nginx service
+  service: name=nginx state=started enabled=yes
+  tags: nginx

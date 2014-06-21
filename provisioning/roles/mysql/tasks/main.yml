@@ -1,11 +1,21 @@
 ---
  - name: Install MySQL Server
-   apt: pkg=mysql-server update_cache=yes
+   apt:
+     pkg=mysql-server
+     update_cache=yes
+  tags: mysql
 
  - name: Create MySQL configuration file
-   template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+   template:
+     src=my.cnf.j2
+     dest=/etc/mysql/my.cnf
    notify:
    - restart mysql
+   tags: mysql
 
  - name: Start MySQL Service
-   service: name=mysql state=started enabled=true
+   service:
+     name=mysql
+     state=started
+     enabled=true
+  tags: mysql

@@ -3,41 +3,36 @@
   apt: pkg=php5
   tags: php
 
-- name: Install PHP5 command line interface
-  apt: pkg=php5-cli
+- name: Install PHP5 libraries
+  apt: pkg={{ item }}
+  with_items:
+   - php5-cli
+   - php5-fpm
+   - php5-mysql
+   - php5-mcrypt
+   - php5-gd
+   - php5-xdebug
   tags: php
 
-- name: Install PHP5 CGI library
-  apt: pkg=php5-cgi
-  tags: php
-
-- name: Install PHP5 FPM library
-  apt: pkg=php5-fpm
-  tags: php
-
-- name: Install PHP5 mysql driver
-  apt: pkg=php5-mysql
-  tags: php
-
-- name: Install PHP5 mcrypt library
-  apt: pkg=php5-mcrypt
-  tags: php
-
-- name: Install PHP5 gd library
-  apt: pkg=php5-gd
-  tags: php
-
-- name: Install PHP5 xdebug
-  apt: pkg=php5-xdebug
+- name: Make mcrypt configuration file
+  shell: echo 'extension=/usr/lib/php5/20121212/mcrypt.so' > {{ item }}
+  with_items:
+   - /etc/php5/mods-available/mcrypt.ini
+   - /etc/php5/cli/conf.d/20-mcrypt.ini
+   - /etc/php5/fpm/conf.d/20-mcrypt.ini
   tags: php
 
 - name: Create PHP5 configuration file
-  copy: src=php-fpm.conf dest=/etc/php5/fpm/php-fpm.conf
+  copy:
+    src=php-fpm.conf
+    dest=/etc/php5/fpm/php-fpm.conf
   tags: php
 
 - name: Create FPM configuration file
-  copy: src=www.conf dest=/etc/php5/fpm/pool.d/www.conf
+  copy: 
+    src=www.conf
+    dest=/etc/php5/fpm/pool.d/www.conf
   tags: php
 
-#- include: composer.yml
+- include: composer.yml
 

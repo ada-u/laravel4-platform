@@ -1,6 +1,6 @@
 # Vagrant box with Laravel4
 
-[![wercker status](https://app.wercker.com/status/492d81d829a4e840662427a0049e8208/m "wercker status")](https://app.wercker.com/project/bykey/492d81d829a4e840662427a0049e8208)
+[![wercker status](https://app.wercker.com/status/baed3cdf998146c31240cd017c6cbf36/m "wercker status")](https://app.wercker.com/project/bykey/baed3cdf998146c31240cd017c6cbf36)
 
 
 ## Setup

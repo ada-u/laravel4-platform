@@ -34,5 +34,5 @@
     dest=/etc/php5/fpm/pool.d/www.conf
   tags: php
 
-- include: composer.yml
+#- include: composer.yml
 
